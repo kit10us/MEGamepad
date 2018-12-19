@@ -38,7 +38,7 @@ namespace megp
 
 	private:
 		me::game::IGame * m_game;
-		std::map< std::string, size_t, unify::CaseInsensitiveLessThanTest > m_nameToIndex;
+		std::map< std::string, size_t, unify::string::CaseInsensitiveLessThanTest > m_nameToIndex;
 		std::map< DWORD, XINPUT_STATE > m_states;
 		std::map< DWORD, XINPUT_STATE > m_prevStates;
 	};
