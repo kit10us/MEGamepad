@@ -1,7 +1,7 @@
 // Copyright (c) 2002 - 2018, Kit10 Studios LLC
 // All Rights Reserved
 
-#include <Windows.h>
+#include <port/win/Windows.h>
 
 #include <megp/Gamepad.h>
 
@@ -169,14 +169,14 @@ input::IData::ptr Gamepad::GetInputData( size_t subSource, size_t index ) const
 
 	if ( index < (g_ButtonNames.size()) )
 	{	
-		auto itr = m_states.find( subSource );
+		auto itr = m_states.find( (DWORD)subSource );
 		if ( itr == m_states.end() )
 		{
 			return input::IData::ptr();
 		}
 
 		const XINPUT_STATE * prevState = 0;
-		auto itrPrevious = m_prevStates.find( subSource );
+		auto itrPrevious = m_prevStates.find( (DWORD)subSource );
 		if ( itrPrevious != m_prevStates.end() )
 		{
 			prevState = &itrPrevious->second;
@@ -192,7 +192,7 @@ input::IData::ptr Gamepad::GetInputData( size_t subSource, size_t index ) const
 	}
 	else if ( index < (g_ButtonNames.size() + g_TriggerNames.size()) )
 	{
-		auto itr = m_states.find( subSource );
+		auto itr = m_states.find( (DWORD)subSource );
 		if ( itr == m_states.end() )
 		{
 			return input::IData::ptr();
@@ -203,7 +203,7 @@ input::IData::ptr Gamepad::GetInputData( size_t subSource, size_t index ) const
 		const XINPUT_STATE * state = &itr->second;
 		input::TriggerData * data = new input::TriggerData();
 	
-		int triggerIndex = index - g_ButtonNames.size();
+		size_t triggerIndex = index - g_ButtonNames.size();
 		switch ( triggerIndex )
 		{
 		case 0:
@@ -217,7 +217,7 @@ input::IData::ptr Gamepad::GetInputData( size_t subSource, size_t index ) const
 	}
 	else if ( index < (g_ButtonNames.size() + g_TriggerNames.size() + g_StickNames.size()) )
 	{
-		auto itr = m_states.find( subSource );
+		auto itr = m_states.find( (DWORD)subSource );
 		if ( itr == m_states.end() )
 		{
 			return input::IData::ptr();
@@ -228,7 +228,7 @@ input::IData::ptr Gamepad::GetInputData( size_t subSource, size_t index ) const
 		const XINPUT_STATE * state = &itr->second;
 		input::StickData * data = new input::StickData();
 
-		int stickIndex = index - g_ButtonNames.size() - g_TriggerNames.size();
+		size_t stickIndex = index - g_ButtonNames.size() - g_TriggerNames.size();
 		switch ( stickIndex )
 		{
 		case 0:

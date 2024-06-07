@@ -1,8 +1,7 @@
 // Copyright (c) 2002 - 2018, Kit10 Studios LLC
 // All Rights Reserved
 
-#define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
-#include <windows.h>
+#include <port/win/Windows.h>
 
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
